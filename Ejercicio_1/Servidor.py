@@ -14,8 +14,13 @@ def descifrar(datos, clave, iv):
     decipher = AES.new(clave, AES.MODE_CBC, iv)
     texto_des_pad = decipher.decrypt(datos)
 
+    # Comprobar si está vacío
+    if len(texto_des_pad) == 0:
+        print("El texto desencriptado está vacío. Clave/IV erróneos o datos corruptos.")
+        return ""
+
     ultimo_bloque = texto_des_pad[-1]
-    texto_des = texto_des_pad[:ultimo_bloque]
+    texto_des = texto_des_pad[:-ultimo_bloque]
 
     return texto_des.decode('UTF-8')
 
